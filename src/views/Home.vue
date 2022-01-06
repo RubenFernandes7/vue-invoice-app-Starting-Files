@@ -1,0 +1,138 @@
+<template>
+  <div class="home container">
+    <!-- HEADER -->
+    <div class="header flex">
+      <div class="left flex flex-column">
+        <h1>Faturas</h1>
+        <span>Existem 4 faturas no total</span>
+      </div>
+      <div class="right flex">
+        <div @click="toggleFilterMenu" class="filter flex">
+          <span>Filtrar por estado</span>
+          <img src="@/assets/icon-arrow-down.svg" alt="" />
+          <ul v-show="filterMenu" class="filter-menu">
+            <li>Rascunho</li>
+            <li>Pendente</li>
+            <li>Pago</li>
+            <li>Limpar Filtro</li>
+          </ul>
+        </div>
+        <div @click="newInvoice" class="button flex">
+          <div class="inner-button flex">
+            <img src="@/assets/icon-plus.svg" alt="">
+          </div>
+          <span>Nova Fatura</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import {mapMutations} from 'vuex';
+export default {
+  name: "Home",
+  data() {
+    return {
+        filterMenu: null,
+      };
+  },
+  components: {},
+  methods: {
+    ...mapMutations(['TOGGLE_INVOICE']),
+    newInvoice() {
+      this.TOGGLE_INVOICE();
+    },
+
+    toggleFilterMenu() {
+      this.filterMenu = !this.filterMenu;
+    }
+  }
+};
+</script>
+
+
+<style lang="scss" scoped>
+.home{
+  color: #fff;
+  .header{
+    margin-top: 65px;
+
+    .left,
+    .right{
+      flex: 1;
+
+    }
+
+    .right{
+      justify-content: flex-end;
+      align-items: center;
+
+      .button,
+      .filter{
+        align-items: center;
+
+        span{
+          font-size: 12px;
+
+        }
+      }
+      .filter{
+        cursor: pointer;
+        position: relative;
+        margin-right: 40px;
+
+        span,
+        img{
+          pointer-events: none;
+        }
+
+        img {
+          margin-left: 12px;
+          width: 9px;
+          height: 5px;
+        }
+
+        .filter-menu{
+          width: 120px;
+          position: absolute;
+          top:25px;
+          list-style: none;
+          background-color: #1e2139;
+          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.6);
+
+          li{
+            cursor: pointer;
+            font-size: 12px;
+            padding: 10px 20px;
+
+            &:hover{
+              color: #1e2139;
+              background-color: #fff;
+            }
+            }
+        }
+      }
+
+      .button{
+        padding: 8px 10px;
+        background-color: #7c5dfa;
+        border-radius: 40px;
+
+        .inner-button{
+          margin-right: 8px;
+          border-radius: 50%;
+          padding: 8px;
+          align-items: center;
+          justify-content: center;
+          background-color: #fff;
+          img{
+            width: 10px;
+            height: 10px;
+          }
+        }
+      }
+    }
+    }
+  }
+</style>
